@@ -69,7 +69,7 @@ for a in wires[0]:
         elif is_vertical(a) and is_vertical(b):
             add_vt_intersections(a,b)
         
-# Find intersection with smallest x + y   
+# Find intersection with smallest x + y 
 print(min([abs(pt[0]) + abs(pt[1]) for pt in intersections]))
 
 # Turns out I got really lucky and the horizontal/vertical cases didn't matter, even though there WAS a horizontal overlap in my map
