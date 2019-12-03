@@ -1,13 +1,13 @@
 # Just for fun. This isn't to solve it or anything, just visualizes your input.
 # NGL Stole the threading technique from stackoverflow
 # bc i ain't got time for threading this nonsense
-
+import sys
 import queue
 import threading
 import turtle
 
 ins = []
-with open('day3.txt') as f:
+with open(sys.argv[1]) as f:
     for line in f.readlines():
         ins.append(line.split(','))
 
@@ -43,7 +43,7 @@ thread1.daemon = True  # thread dies when main thread (only non-daemon thread) e
 thread1.start()
 
 turtle2 = turtle.Turtle('turtle')
-turtle2.color(0,0,1)
+turtle2.color(0,.6,0)
 turtle2.speed('fastest')
 turtle2.ht()
 thread2 = threading.Thread(target=wire, args=(turtle2,1))
