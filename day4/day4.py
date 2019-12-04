@@ -21,5 +21,3 @@ for i in r:
     if contains_adjacent(l) and not decreases(l):
         count += 1
 print(count)
-
-# 1liner if i have time
