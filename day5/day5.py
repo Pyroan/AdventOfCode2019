@@ -8,11 +8,11 @@ STORE = 3
 DUMP = 4
 HALT = 99
 
-def p(arg: int, pm: int = 0):
-    if pm == 0:
-        return int(code[int(code[arg])])
-    elif pm == 1:
-        return int(code[arg])
+def p(arg):
+    if arg[1] == 0:
+        return code[arg[0]]
+    elif arg[1] == 1:
+        return arg[0]
 
 ip = 0 # instruction pointer    
 
@@ -20,25 +20,22 @@ while ip < len(code):
     # Process instruction
     i = str(code[ip])
     opcode = int(''.join(i[-2:]))
-    argpms = list(map(int, i[-3::-1])) # i <3 slices
-    argpms.extend([0] * (3-len(argpms)))  # pad with zeroes bc i'm too lazy to think of better solution
-#    print("Instruction:", opcode, argpms)
+    pmods = list(map(int, i[-3::-1]))        # get parameter modes
+    pmods.extend([0]*(3-len(pmods)))         # pad w/ 0s
+    args = list(zip(code[ip+1:ip+4], pmods)) # bind parameter modes to params
 
     # Run the op
     if opcode == ADD:
-        code[code[ip+3]] = p(ip+1, argpms[0]) + p(ip+2, argpms[1])
+        code[code[ip+3]] = p(args[0]) + p(args[1])
         ip += 4
     elif opcode == MULTIPLY:
-        code[code[ip+3]] = p(ip+1, argpms[0]) * p(ip+2, argpms[1])
+        code[code[ip+3]] = p(args[0]) * p(args[1])
         ip += 4
     elif opcode == STORE:
         code[code[ip+1]] = int(input("Enter an int pls: "))
         ip += 2
     elif opcode == DUMP:
-        print(p(ip+1, argpms[0]))
+        print(p(args[0]))
         ip += 2
     elif opcode == HALT:
         exit()
-
-    # CORE DUMPPPP
-    # print(code)
