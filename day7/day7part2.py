@@ -26,7 +26,6 @@ class Accelerator:
         self.phase = phase
         self.out = 0
         self.ip = 0
-        self.halt = False
         self.phase_used = False
 
     def run(self, sig):
@@ -80,8 +79,7 @@ class Accelerator:
                     code[code[self.ip+3]] = 0
                 self.ip += 4
             elif opcode == HALT:
-                self.halt = True
-                return self.out
+                return -1
 
 
 perms = itertools.permutations(range(5,10))
@@ -90,13 +88,9 @@ for i in perms:
     accels = [Accelerator(p) for p in i]
     s =accels[0].run(0)
     j = 1
-    n = 0
-    while True not in [s.halt for s in accels]:
+    while s != -1:
         s = accels[j].run(s)
         j = (j+1)%5
-        if j ==0:
-            n+=1
-            if n%100==0: print(s)
     if accels[4].out > biggest:
         biggest = accels[4].out
 print(biggest)
