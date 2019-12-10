@@ -45,8 +45,6 @@ while vaporized < 200:
         if field[i][j] == '#':
             field[i][j] = '.'
             vaporized += 1
-            if vaporized in [1,2,3,10,20,50,100,199,200]:
-                print(j,i,sep=', ')
             break
     
     s = (s+1) % len(slopes)

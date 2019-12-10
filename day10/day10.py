@@ -24,7 +24,6 @@ for y in range(len(field)):
             continue
         detected = set()
         # SWEEP
-        # 0-90 degrees
         for slope in slopes:
             # Cast ray
             i,j = y,x
@@ -67,8 +66,5 @@ for y in range(len(field)):
             biggest = len(detected)
             biggest_loc = [x,y]
         
-        # print([x,y], '->', len(detected))
-        
-
 print(biggest)
 print(biggest_loc)
